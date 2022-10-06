@@ -8,8 +8,8 @@ if (isset($_SESSION['error'])
 ) {
  $errors = $_SESSION['error'];
 };
-if(isset($_SESSION['product'])){
-  $fetchedProduct = $_SESSION['product'];
+if(isset($_SESSION['productId'])){
+  $productId = $_SESSION['productId'];
 }
 ?>
 <!DOCTYPE html>
@@ -85,43 +85,43 @@ if(isset($_SESSION['product'])){
               </tbody>
             </table>
             <div id="dialog" title="Basic dialog">
-             <form action="editProduct.php?productId=<?php echo $fetchedProduct['ProductId'] ?>" method="post" class="dialogForm">
+             <form  method="post" class="dialogForm">
               <div>
                 <label for="adminName">Admin Name</label>
                 <input 
+                id="addedBy"
                 type="text" 
                 name="adminName" 
-                value="<?php echo $fetchedProduct['AddedBy']?>">
+                />
               </div>
                <div>
                 <label for="productName">Product Name</label>
                 <input 
                 type="text" 
                 name="productName" 
-                value="<?php echo $fetchedProduct['ProductName']?>">
+                id="productNameEdt">
               </div>
               <div>
                 <label for="quantityAvailable">Quantity Availlable</label>
                 <input 
                 type="text" 
                 name="quantityAvailable" 
-                value="<?php echo $fetchedProduct['QuantityAvailable']?>">
+                id="quantityAvailableEdt">
               </div>
               <div>
                 <label for="price">Price</label>
                 <input 
                 type="number" 
                 name="price" 
-                value="<?php echo $fetchedProduct['Price']?>">
+                id="priceEdt">
               </div>
               <div>
                 <label for="productDescription">Product Description</label>
                 <textarea 
                 name="productDescription" 
-                id="productDescription" 
                 cols="10" 
                 rows="5"
-                value="<?php echo $fetchedProduct['ProductDescription']?>"
+                id="productDescriptionEdt"
                 ></textarea>
               </div>
               <div>
@@ -192,6 +192,14 @@ if(isset($_SESSION['product'])){
       url: `fetchProduct.php?productId=${e.target.id}`,
       complete: function(data,status){
         data.then(d=>{
+          const fetchedData = JSON.parse(d)
+          
+          $("#addedBy").val(fetchedData?.AddedBy)
+          $("#productNameEdt").val(fetchedData?.ProductName)
+          $("#productDescriptionEdt").val(fetchedData?.ProductDescription)
+          $("#quantityAvailableEdt").val(fetchedData?.QuantityAvailable)
+          $("#priceEdt").val(fetchedData?.Price)
+          $(".dialogForm").attr('action',`editProduct.php?productId=${fetchedData?.ProductId}`)
           $(".dialogForm").css("visibility","visible")
           $( "#dialog" ).dialog()
         })
@@ -213,5 +221,5 @@ if(isset($_SESSION['product'])){
   </script>
 </html>
 <?php unset($_SESSION['error'])?>
-<?php unset($_SESSION['product'])?>
+<?php unset($_SESSION['productId'])?>
 

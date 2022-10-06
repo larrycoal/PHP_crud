@@ -1,7 +1,6 @@
 <?php
 require 'db_conn.php';
 session_start();
-unset($_SESSION['product']);
 
 $error = null;
 if (!empty($_GET['productId'])) {
@@ -17,12 +16,12 @@ if ($error == null) {
 
  if (mysqli_num_rows($result) == 1) {
   $row                 = mysqli_fetch_array($result, MYSQLI_ASSOC);
-  $_SESSION['product'] = $row;
+  $_SESSION['productId'] = $row["ProductId"];
   echo json_encode($row);
 
  } // else-> inccorect entry in db
 } else {
  echo $error;
 }
-header("location:index.php");
+ // header("location:index.php");
 ?>
