@@ -1,0 +1,18 @@
+CREATE DATABASE Shophova;
+
+
+
+CREATE TABLE `products` (
+  `ProductId` int unsigned NOT NULL AUTO_INCREMENT,
+  `ProductName` varchar(100) NOT NULL,
+  `ProductDescription` varchar(255) NOT NULL,
+  `QuantityAvailable` Double NOT NULL,
+  `Price` Double NOT NULL,
+  `AddedBy` varchar(100) NOT NULL,
+  PRIMARY KEY (`ProductId`)
+) 
+
+"SELECT * FROM products WHERE ProductId = $productId;"; 
+
+ "UPDATE products SET ProductName = ?, ProductDescription = ?, QuantityAvailable = ?, Price = ?,AddedBy=? WHERE  productId = ?;";
+ "INSERT INTO products(ProductName, ProductDescription, QuantityAvailable, Price, AddedBy) VALUES (?,?,?,?,?)";

@@ -11,7 +11,7 @@ if (!empty($_GET['productId'])) {
 }
 
 if ($error == null) {
- $query  = "SELECT * FROM products WHERE ProductId = $productId;"; // replace with paramertized query using mysqli_stmt_bind_param
+ $query  = "SELECT * FROM products WHERE ProductId = $productId;"; 
  $result = @mysqli_query($dbc, $query);
 
  if (mysqli_num_rows($result) == 1) {
